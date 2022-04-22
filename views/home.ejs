@@ -1,33 +1,110 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<%- include('./partials/head.ejs') %>
-
+    <%- include('./partials/head.ejs') %>
     <body>
         <h1>home page</h1>
-
+    
 
 
         <h2>Connect with the database to show all the products that we have in this page</h2>
-        <% var products=[ { id: 1, name: 'Product 1' , price: '$100' , description: 'This is the first product' }, { id:
-            2, name: 'Product 2' , price: '$200' , description: 'This is the second product' }, { id: 3,
-            name: 'Product 3' , price: '$300' , description: 'This is the third product' } ]; %>
+        <%
+            var products = [
+                {
+                    id: 1,
+                    name: 'Product 1',
+                    price: '$100',
+                    description: 'This is the first product'
+                },
+                {
+                    id: 2,
+                    name: 'Product 2',
+                    price: '$200',
+                    description: 'This is the second product'
+                },
+                {
+                    id: 3,
+                    name: 'Product 3',
+                    price: '$300',
+                    description: 'This is the third product'
+                }
+            ];
+        %>
 
-            <% products.forEach(function(product) { %>
-                <div>
-                    <h3>
-                        <%= product.name %>
-                    </h3>
-                    <p>
-                        <%= product.price %>
-                    </p>
-                    <p>
-                        <%= product.description %>
-                    </p>
-                </div>
-                <% }); %>
+        <% products.forEach(function(product) { %>
+            <div>
+                <h3><%= product.name %></h3>
+                <p><%= product.price %></p>
+                <p><%= product.description %></p>
+            </div>
+        <% }); %>
 
-                    <%- include('./partials/footer.ejs') %>
+        <section class = "deals">
+            <h2>Deals of the day</h2>
+            <div class="deal">
+                <h3>Deal 1</h3>
+                <p>This is the first deal</p>
+            </div>
+            <div class="deal">
+                <h3>Deal 2</h3>
+                <p>This is the second deal</p>
+            </div>
+            <div class="deal">
+                <h3>Deal 3</h3>
+                <p>This is the third deal</p>
+            </div>
+
+        </section>
+
+        <section class="wishlist">
+            <h2>Wishlist</h2>
+            <div class="wish">
+                <h3>Wish 1</h3>
+                <p>This is the first wish</p>
+            </div>
+            <div class="wish">
+                <h3>Wish 2</h3>
+                <p>This is the second wish</p>
+            </div>
+            <div class="wish">
+                <h3>Wish 3</h3>
+                <p>This is the third wish</p>
+            </div>
+        </section>
+
+        <section class = "bestsellers">
+            <h2>Bestsellers</h2>
+            <div class="bestseller">
+                <h3>Bestseller 1</h3>
+                <p>This is the first bestseller</p>
+            </div>
+            <div class="bestseller">
+                <h3>Bestseller 2</h3>
+                <p>This is the second bestseller</p>
+            </div>
+            <div class="bestseller">
+                <h3>Bestseller 3</h3>
+                <p>This is the third bestseller</p>
+            </div>
+        </section>
+
+        <section class="newarrivals">
+            <h2>New Arrivals</h2>
+            <div class="newarrival">
+                <h3>New Arrival 1</h3>
+                <p>This is the first new arrival</p>
+            </div>
+            <div class="newarrival">
+                <h3>New Arrival 2</h3>
+                <p>This is the second new arrival</p>
+            </div>
+            <div class="newarrival">
+                <h3>New Arrival 3</h3>
+                <p>This is the third new arrival</p>
+            </div>
+        </section>
+
+        <%- include('./partials/footer.ejs') %>
     </body>
 
 </html>
