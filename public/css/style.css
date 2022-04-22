@@ -1,0 +1,24 @@
+.logo{
+    width: 150px;
+    height: 150px;
+    margin-top: 50px;
+    margin-left: 50px;
+}
+
+
+.navigation{
+    margin : auto;
+    position: relative;
+}
+
+.navigation :hover{
+    color: #ff0000;
+    /* font-size: 120%; */
+}
+
+nav{
+    background-color: #f2f2f2;
+    height: 50px;
+    width: 100%;
+    border-bottom: 1px solid #ccc;
+}
