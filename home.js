@@ -1,6 +1,19 @@
 const express = require('express');
 const app = express();
 
+var mysql = require('mysql');
+var con = mysql.createConnection({
+    host: "localhost",
+    user: "root",
+    password: "1234",
+    database: "Project"
+});
+
+con.connect(function(err) {
+    if (err) throw err;
+    console.log("Connected!");
+});
+
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
 
