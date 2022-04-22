@@ -22,3 +22,22 @@ nav{
     width: 100%;
     border-bottom: 1px solid #ccc;
 }
+
+.deals{
+    background-color: aqua;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.wishlist{
+    background-color: rgb(61, 117, 117);
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.bestsellers{
+    background-color: rgb(95, 61, 117);
+    font-family: 'Courier New', Courier, monospace;
+}
+.newarrivals{
+    background-color: rgb(38, 19, 90);
+    font-family: 'Courier New', Courier, monospace;
+}
