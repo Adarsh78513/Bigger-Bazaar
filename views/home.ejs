@@ -1,45 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
 
-    <%- include('./partials/head.ejs') %>
+<%- include('./partials/head.ejs') %>
+
     <body>
         <h1>home page</h1>
-    
+
 
 
         <h2>Connect with the database to show all the products that we have in this page</h2>
-        <%
-            var products = [
-                {
-                    id: 1,
-                    name: 'Product 1',
-                    price: '$100',
-                    description: 'This is the first product'
-                },
-                {
-                    id: 2,
-                    name: 'Product 2',
-                    price: '$200',
-                    description: 'This is the second product'
-                },
-                {
-                    id: 3,
-                    name: 'Product 3',
-                    price: '$300',
-                    description: 'This is the third product'
-                }
-            ];
-        %>
+        <% var products=[ { id: 1, name: 'Product 1' , price: '$100' , description: 'This is the first product' }, { id:
+            2, name: 'Product 2' , price: '$200' , description: 'This is the second product' }, { id: 3,
+            name: 'Product 3' , price: '$300' , description: 'This is the third product' } ]; %>
 
-        <% products.forEach(function(product) { %>
-            <div>
-                <h3><%= product.name %></h3>
-                <p><%= product.price %></p>
-                <p><%= product.description %></p>
-            </div>
-        <% }); %>
+            <% products.forEach(function(product) { %>
+                <div>
+                    <h3>
+                        <%= product.name %>
+                    </h3>
+                    <p>
+                        <%= product.price %>
+                    </p>
+                    <p>
+                        <%= product.description %>
+                    </p>
+                </div>
+                <% }); %>
 
-        <%- include('./partials/footer.ejs') %>
+                    <%- include('./partials/footer.ejs') %>
     </body>
 
 </html>
