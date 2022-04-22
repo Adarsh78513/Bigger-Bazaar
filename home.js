@@ -36,3 +36,14 @@ app.get('/product', (req, res) => {
     res.render('product');
 });
 
+app.get('/product/groceries', (req, res) => {
+    res.render('groceries');
+});
+
+app.get('/product/clothing', (req, res) => {
+    res.render('clothing');
+});
+
+app.get('/product/electronics', (req, res) => {
+    res.render('electronics');
+});
