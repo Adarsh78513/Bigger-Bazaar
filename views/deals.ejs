@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('./partials/head.ejs') %>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deaks</title>
+</head>
+<body>
+    <h2>
+        Deals on Groceries :
+    </h2>
+    <p>
+        <ul>
+            <% var products=[ { id: 1, name: 'Deal 1' , percentage: 'Discount : 10%' , description: 'This is deal is for Gold Customers' }, { id:
+            2, name: 'Deal 2' , percentage: 'Discount : 20%' , description: 'This is deal is for Silver Customers' }, { id: 3,
+                name: 'Deal 3' , percentage: 'Discount : 30%' , description: 'This is deal is for Platinum Customers' } ]; %>
+            <% products.forEach(function(product) { %>
+                <li>
+                    <h3>
+                        <%= product.name %>
+                    </h3>  
+                </li>
+                <li>
+                    <%= product.percentage %>
+                </li>
+                <li>
+                    <%= product.description %>
+                </li>
+            <% }) %>
+        </ul>
+    </p>
+    <hr>
+    <h2>
+        Deals on Clothing :
+    </h2>
+    <p>
+        <ul>
+            <% var products=[ { id: 1, name: 'Deal 1' , percentage: 'Discount : 10%' , description: 'This is deal is for Gold Customers' }, { id:
+            2, name: 'Deal 2' , percentage: 'Discount : 20%' , description: 'This is deal is for Silver Customers' }, { id: 3,
+                name: 'Deal 3' , percentage: 'Discount : 30%' , description: 'This is deal is for Platinum Customers' } ]; %>
+            <% products.forEach(function(product) { %>
+                <li>
+                    <h3>
+                        <%= product.name %>
+                    </h3>  
+                </li>
+                <li>
+                    <%= product.percentage %>
+                </li>
+                <li>
+                    <%= product.description %>
+                </li>
+            <% }) %>
+        </ul>
+    </p>
+    <hr>
+    <h2>
+        Deals on Electronics :
+    </h2>
+    <p>
+        <ul>
+            <% var products=[ { id: 1, name: 'Deal 1' , percentage: 'Discount : 10%' , description: 'This is deal is for Gold Customers' }, { id:
+            2, name: 'Deal 2' , percentage: 'Discount : 20%' , description: 'This is deal is for Silver Customers' }, { id: 3,
+                name: 'Deal 3' , percentage: 'Discount : 30%' , description: 'This is deal is for Platinum Customers' } ]; %>
+            <% products.forEach(function(product) { %>
+                <li>
+                    <h3>
+                        <%= product.name %>
+                    </h3>  
+                </li>
+                <li>
+                    <%= product.percentage %>
+                </li>
+                <li>
+                    <%= product.description %>
+                </li>
+            <% }) %>
+        </ul>
+    </p>
+    <hr>
+</body>
+</html>
