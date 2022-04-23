@@ -1,10 +1,23 @@
 const express = require('express');
 const app = express();
+var mysql = require('mysql');
 
-// var mysql = require('mysql');
+
+
+// con.connect(function(err) {
+//     if (err) throw err;
+//     console.log("Connected!");
+// });
+
+// con.connect(function(err) {
+//     if (err) throw err;
+//     console.log("Connected!");
+// });
+
+////makign a connection with azure
 // var con = mysql.createConnection({
 //     host: "project-database.mysql.database.azure.com",
-//     user: "root",
+//     user: "_admin",
 //     password: "Project@123",
 //     database: "project"
 // });
@@ -12,6 +25,29 @@ const app = express();
 // con.connect(function(err) {
 //     if (err) throw err;
 //     console.log("Connected!");
+// });
+
+
+////change the password and the databasename according to your database
+//connecting with the localhost
+var con = mysql.createConnection({
+    host: "localhost",
+    user: "root",
+    password: "1234",
+    database: "project"
+});
+
+con.connect(function(err) {
+    if (err) throw err;
+    console.log("Connected!");
+});
+
+// con.connect(function(err) {
+//     if (err) throw err;
+//     con.query("SELECT * FROM customers", function (err, result, fields) {
+//         if (err) throw err;
+//         console.log(result);
+//     });
 // });
 
 app.set('view engine', 'ejs');
