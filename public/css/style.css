@@ -41,3 +41,19 @@ nav{
     background-color: rgb(38, 19, 90);
     font-family: 'Courier New', Courier, monospace;
 }
+
+
+#leftbox {
+    float: left;
+    width: 33%;
+}
+
+#middlebox {
+    float: left;
+    width: 34%;
+}
+
+#rightbox {
+    float: right;
+    width: 33%;
+}
