@@ -49,15 +49,15 @@ app.get('/product', (req, res) => {
     res.render('product');
 });
 
-app.get('/product/groceries', (req, res) => {
+app.get('/groceries', (req, res) => {
     res.render('groceries');
 });
 
-app.get('/product/clothing', (req, res) => {
+app.get('/clothing', (req, res) => {
     res.render('clothing');
 });
 
-app.get('/product/electronics', (req, res) => {
+app.get('/electronics', (req, res) => {
     res.render('electronics');
 });
 

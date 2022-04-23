@@ -19,14 +19,16 @@
             <% products.forEach(function(product) { %>
                 <li>
                     <h3>
-                        <%= product.name %>
+                        <a href="/groceries">
+                            <%= product.name %>
+                        </a>
                     </h3>  
-                </li>
-                <li>
-                    <%= product.percentage %>
-                </li>
-                <li>
-                    <%= product.description %>
+                    <p>
+                        <%= product.percentage %>
+                    </p>
+                    <p>
+                        <b><%= product.description %></b>
+                    </p>
                 </li>
             <% }) %>
         </ul>
@@ -43,14 +45,16 @@
             <% products.forEach(function(product) { %>
                 <li>
                     <h3>
-                        <%= product.name %>
-                    </h3>  
-                </li>
-                <li>
-                    <%= product.percentage %>
-                </li>
-                <li>
-                    <%= product.description %>
+                        <a href="/clothing">
+                            <%= product.name %>
+                        </a>
+                    </h3>
+                    <p>
+                        <%= product.percentage %>
+                    </p>
+                    <p>
+                        <b><%= product.description %></b>
+                    </p>
                 </li>
             <% }) %>
         </ul>
@@ -67,14 +71,16 @@
             <% products.forEach(function(product) { %>
                 <li>
                     <h3>
-                        <%= product.name %>
-                    </h3>  
-                </li>
-                <li>
-                    <%= product.percentage %>
-                </li>
-                <li>
-                    <%= product.description %>
+                        <a href="/electronics">
+                            <%= product.name %>
+                        </a>
+                    </h3>
+                    <p>
+                        <%= product.percentage %>
+                    </p>
+                    <p>
+                        <b><%= product.description %></b>
+                    </p>
                 </li>
             <% }) %>
         </ul>
