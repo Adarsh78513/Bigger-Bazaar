@@ -1,18 +1,18 @@
 const express = require('express');
 const app = express();
 
-var mysql = require('mysql');
-var con = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password: "1234",
-    database: "Project"
-});
+// var mysql = require('mysql');
+// var con = mysql.createConnection({
+//     host: "project-database.mysql.database.azure.com",
+//     user: "root",
+//     password: "Project@123",
+//     database: "project"
+// });
 
-con.connect(function(err) {
-    if (err) throw err;
-    console.log("Connected!");
-});
+// con.connect(function(err) {
+//     if (err) throw err;
+//     console.log("Connected!");
+// });
 
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
@@ -59,4 +59,8 @@ app.get('/product/clothing', (req, res) => {
 
 app.get('/product/electronics', (req, res) => {
     res.render('electronics');
+});
+
+app.get('/deals', (req, res) => {
+    res.render('deals');
 });
