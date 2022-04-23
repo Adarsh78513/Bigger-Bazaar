@@ -103,6 +103,19 @@
                 <p>This is the third new arrival</p>
             </div>
         </section>
+        
+        <% if(result.length > 0){ %>
+            <% result.forEach( result => { %>
+                <p>Produc type: <%= result.productType %></p>
+                <p>Description: <%= result.Description %></p>
+                <p>Company: <%= result.CompanyName %></p>
+                <p>Cost: <%= result.Price %></p>
+            <% }) %>
+        <% }else { %>
+            <p>No results</p>
+        <% } %>
+
+
 
         <%- include('./partials/footer.ejs') %>
     </body>
