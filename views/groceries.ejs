@@ -14,7 +14,7 @@
             Groceries :
         </h2>
         <hr>
-        <ul>
+        <!-- <ul>
             <% var products=[ { id: 1, name: 'Product 1' , price: '$100' , description: 'This is the first product' }, {
                 id: 2, name: 'Product 2' , price: '$200' , description: 'This is the second product' }, { id: 3,
                 name: 'Product 3' , price: '$300' , description: 'This is the third product' } ]; %>
@@ -39,6 +39,32 @@
                         </button>
                     </li>
                     <% }); %>
+        </ul> -->
+        <ul>
+            <% if(result.length> 0){ %>
+                <% result.forEach( result=> { %>
+                    <li>
+                        <h3>Product ID: <%= result.ProductID %>
+                        </h3>
+                        <p>Product Weight: <%= result.Weight %>
+                        </p>
+                        <p>Expiry Date: <%= result.ExpiryDate.toString().substring(0, 15) %>
+                        </p>
+                        <p>Price: <%= result.Price %>
+                        </p>
+                        <label for="quantity">Quantity (1-100):</label>
+
+                        <input type="number" id="quantity" name="quantity" min="1" max="100">
+                        <button>
+                            <a href="/wishlist">
+                                Add To Wishlist
+                            </a>
+                        </button>
+                    </li>
+                    <% }) %>
+                        <% }else { %>
+                            <p>No results</p>
+                            <% } %>
         </ul>
     </body>
 
