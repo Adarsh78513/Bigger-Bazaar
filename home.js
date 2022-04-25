@@ -79,6 +79,7 @@ app.get('/', (req, res) => {
 
 app.get('/:id',(req, res) => {
     const id = req.params.id;
+    // let sql = "SELECT * FROM products  LEFT [OUTER] JOIN deals  ON products.DealID = deals.ProductID where ProductID = ?";
     let sql = "SELECT * FROM products WHERE ProductID = ?";
     con.query(sql, [id], function (err, result, fields) {
         if (err) throw err;
