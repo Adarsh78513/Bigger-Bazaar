@@ -4,14 +4,17 @@
 <body>
     <% if(product.length > 0){ %>
         <% product.forEach( product => { %>
+            <h1 class = "productName" >Product Name</h1>
             <p>Produc Type: <%= product.ProductType %></p>
             <p>Description: <%= product.Description %></p>
-            <p>Company: <%= product.CompanyName %></p>
+            <% if(product.CompanyName != null){ %>
+                <p>Company: <%= product.CompanyName %></p>
+            <% } %>
             <p>Cost: <%= product.Price %></p>
             <% if(product.DealID != null){ %>
                 <p>Deal ID: <%= product.DealID %></p>
             <% }else{ %>
-                <p>No deal</p>
+                <p>No deals on this product currently.</p>
             <% } %>
         <% }) %>
     <% }else { %>

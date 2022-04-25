@@ -202,8 +202,22 @@
         
         <% if(result.length > 0){ %>
             <% result.forEach( result => { %>
+<<<<<<< HEAD
                 <a class = "product" href="/<%= result.ProductID %>">
                     <p>Product ID<%= result.ProductID %></p>
+=======
+                <a href="/<%= result.ProductID %>">
+                    <div class = "product">
+                        <h3 class = "productName">Product Name</h3>
+                        <!-- <img src="<%= result.Image %>" alt="<%= result.ProductName %>"> -->
+                        <p>Produc type: <%= result.ProductType %></p>
+                        <p>Description: <%= result.Description %></p>
+                        <% if(result.CompanyName != null){ %>
+                            <p>Company: <%= result.CompanyName %></p>
+                        <% } %>
+                        <p class = "price">Cost: ₹ <%= result.Price %></p>
+                    </div>
+>>>>>>> 97c61bd4514dc07bd2ada68cadce21b1662275a3
                 </a>
                 <p>Produc type: <%= result.ProductType %></p>
                 <p>Description: <%= result.Description %></p>

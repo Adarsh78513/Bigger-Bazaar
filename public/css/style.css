@@ -43,6 +43,39 @@ nav{
 }
 
 
+a{
+    text-decoration: none;
+    color: black;
+}
+
+.product{
+    background-color: #f2f2f2;
+    height: auto;
+    width: auto;
+    margin: auto;
+    margin-top: 50px;
+    border-radius: 10px;
+}
+
+.product:hover{
+    background-color: rgb(240, 232, 232);
+}
+
+.productName{
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: 900;
+    color: #bd3f3f;
+}
+
+.productName:hover{
+    color: #ff0000;
+}
+
+.price{
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: 900;
+    color: #12a71a;
+}
 #leftbox {
     float: left;
     width: 33%;
@@ -52,7 +85,7 @@ nav{
     float: left;
     width: 34%;
 }
-
+ 
 #rightbox {
     float: right;
     width: 33%;
