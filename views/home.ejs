@@ -202,10 +202,13 @@
         
         <% if(result.length > 0){ %>
             <% result.forEach( result => { %>
-                <p>Produc type: <%= result.ProductType %></p>
-                <p>Description: <%= result.Description %></p>
-                <p>Company: <%= result.CompanyName %></p>
-                <p>Cost: <%= result.Price %></p>
+                <a class = "product" href="/<%= result.ProductID %>">
+                    <p>Product ID<%= result.ProductID %></p>
+                    <p>Produc type: <%= result.ProductType %></p>
+                    <p>Description: <%= result.Description %></p>
+                    <p>Company: <%= result.CompanyName %></p>
+                    <p>Cost: <%= result.Price %></p>
+                </a>
             <% }) %>
         <% }else { %>
             <p>No results</p>
