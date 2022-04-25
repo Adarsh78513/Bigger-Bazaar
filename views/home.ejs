@@ -3,7 +3,7 @@
 
     <%- include('./partials/head.ejs') %>
     <body>
-        <h1>home page</h1>
+        <h1>Home Page</h1>
     
         <head>
             <meta charset="UTF-8">
@@ -13,7 +13,7 @@
         </head>
     
     
-        <h1>Products List</h1>
+        <h2>Products List</h2>
         <hr>
         <Table border=2px bgcolor="white" height=100 width=1500px>
             <tr align="center">
@@ -204,11 +204,12 @@
             <% result.forEach( result => { %>
                 <a class = "product" href="/<%= result.ProductID %>">
                     <p>Product ID<%= result.ProductID %></p>
-                    <p>Produc type: <%= result.ProductType %></p>
-                    <p>Description: <%= result.Description %></p>
-                    <p>Company: <%= result.CompanyName %></p>
-                    <p>Cost: <%= result.Price %></p>
                 </a>
+                <p>Produc type: <%= result.ProductType %></p>
+                <p>Description: <%= result.Description %></p>
+                <p>Company: <%= result.CompanyName %></p>
+                <p>Cost: <%= result.Price %></p>
+                
             <% }) %>
         <% }else { %>
             <p>No results</p>
