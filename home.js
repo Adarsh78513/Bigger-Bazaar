@@ -104,8 +104,6 @@ app.post('/login', (req, res) => {
     //     });
 
     // });
-    
-
 });
 
 app.get('/:id',(req, res) => {

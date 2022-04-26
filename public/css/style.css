@@ -5,15 +5,10 @@
     margin-left: 50px;
 }
 
-
-.navigation{
-    margin : auto;
-    position: relative;
-}
-
 .navigation :hover{
-    color: #81bfde;
-    /* font-size: 120%; */
+    color: tomato;
+    /* font-size: 1.25rem; */
+    font-size: 120%;
 }
 
 nav{
@@ -21,6 +16,15 @@ nav{
     height: 50px;
     width: 100%;
     border-bottom: 1px solid #ccc;
+    display: flex;
+    justify-content: space-between;
+    align-items:  center;
+    margin-left: 0px;
+}
+
+nav a{
+    padding-left: 7.5px;
+    padding-right: 7.5px;
 }
 
 .deals{
