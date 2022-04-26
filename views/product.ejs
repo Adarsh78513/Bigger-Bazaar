@@ -2,17 +2,17 @@
 <html lang="en">
 <%- include('./partials/head.ejs') %>
 <body>
-    <% if(product.length > 0){ %>
-        <% product.forEach( product => { %>
-            <h1 class = "productName" ><%= product.ProductName %></h1>
-            <p>Product Type: <%= product.ProductType %></p>
-            <p>Description: <%= product.Description %></p>
-            <% if(product.CompanyName != null){ %>
-                <p>Company: <%= product.CompanyName %></p>
+    <% if(result.length > 0){ %>
+        <% result.forEach( result => { %>
+            <h1 class = "productName" ><%= result.ProductName %></h1>
+            <p>Product Type: <%= result.ProductType %></p>
+            <p>Description: <%= result.Description %></p>
+            <% if(result.CompanyName != null){ %>
+                <p>Company: <%= result.CompanyName %></p>
             <% } %>
-            <p>Cost: <%= product.Price %></p>
-            <% if(product.DealID != null){ %>
-                <p>Deal ID: <%= product.DealID %></p>
+            <p>Cost: <%= result.Price %></p>
+            <% if(result.DealID != null){ %>
+                <p>Deal ID: <%= result.DealID %></p>
             <% }else{ %>
                 <p>No deals on this product currently.</p>
             <% } %>

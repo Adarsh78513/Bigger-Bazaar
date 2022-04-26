@@ -71,6 +71,44 @@ app.listen(8080);
 //     });
 // });
 
+app.get('/deals', (req, res) => {
+    let sql = "SELECT * FROM deals, groceries WHERE groceries.ProductID = deals.ProductID; SELECT * FROM deals, clothing WHERE clothing.ProductID = deals.ProductID; SELECT * FROM deals, electronics WHERE electronics.ProductID = deals.ProductID;";
+    con.query(sql, [1, 2, 3], function (err, result, fields) {
+        if (err) throw err;
+        // console.log(result[0]);
+        // console.log(result[1]);
+        // console.log(result[2]);
+        res.render('deals', {title : 'deals', result});
+    });
+});
+
+app.get('/clothing', (req, res) => {
+    let sql = "SELECT * FROM clothing, products WHERE clothing.ProductID = products.ProductID";
+    con.query(sql, function (err, result, fields) {
+        if (err) throw err;
+        // console.log(result);
+        res.render('clothing', {title : 'clothing', result});
+    });
+});
+
+app.get('/electronics', (req, res) => {
+    let sql = "SELECT * FROM electronics, products WHERE electronics.ProductID = products.ProductID";
+    con.query(sql, function (err, result, fields) {
+        if (err) throw err;
+        // console.log(result);
+        res.render('electronics', {title : 'electronics', result});
+    });
+});
+
+app.get('/groceries', (req, res) => {
+    let sql = "SELECT * FROM groceries, products WHERE groceries.ProductID = products.ProductID";
+    con.query(sql, function (err, result, fields) {
+        if (err) throw err;
+        console.log(result);
+        res.render('groceries', {title : 'groceries', result});
+    });
+});
+
 app.get('/', (req, res) => {
     let sql = "SELECT * FROM products";
     con.query(sql, function (err, result, fields) {
@@ -114,45 +152,7 @@ app.get('/:id',(req, res) => {
     con.query(sql, [id], function (err, result, fields) {
         if (err) throw err;
         // console.log(result);
-        res.render('product', { product: result, title : 'product'});
-    });
-});
-
-app.get('/groceries', (req, res) => {
-    let sql = "SELECT * FROM groceries, products WHERE groceries.ProductID = products.ProductID";
-    con.query(sql, function (err, result, fields) {
-        if (err) throw err;
-        // console.log(result);
-        res.render('groceries', {title : 'groceries', result});
-    });
-});
-
-app.get('/clothing', (req, res) => {
-    let sql = "SELECT * FROM clothing, products WHERE clothing.ProductID = products.ProductID";
-    con.query(sql, function (err, result, fields) {
-        if (err) throw err;
-        // console.log(result);
-        res.render('clothing', {title : 'clothing', result});
-    });
-});
-
-app.get('/electronics', (req, res) => {
-    let sql = "SELECT * FROM electronics, products WHERE electronics.ProductID = products.ProductID";
-    con.query(sql, function (err, result, fields) {
-        if (err) throw err;
-        // console.log(result);
-        res.render('electronics', {title : 'electronics', result});
-    });
-});
-
-app.get('/deals', (req, res) => {
-    let sql = "SELECT * FROM deals, groceries WHERE groceries.ProductID = deals.ProductID; SELECT * FROM deals, clothing WHERE clothing.ProductID = deals.ProductID; SELECT * FROM deals, electronics WHERE electronics.ProductID = deals.ProductID;";
-    con.query(sql, [1, 2, 3], function (err, result, fields) {
-        if (err) throw err;
-        // console.log(result[0]);
-        // console.log(result[1]);
-        // console.log(result[2]);
-        res.render('deals', {title : 'deals', result});
+        res.render('product', { title : 'product', result});
     });
 });
 
@@ -193,21 +193,21 @@ app.get('/buy', (req, res) => {
     res.render('buy');
 });
 
-app.get('/product', (req, res) => {
-    res.render('product');
-});
+// app.get('/product', (req, res) => {
+//     res.render('product');
+// });
 
-app.get('/groceries', (req, res) => {
-    res.render('groceries');
-});
+// app.get('/groceries', (req, res) => {
+//     res.render('groceries');
+// });
 
-app.get('/clothing', (req, res) => {
-    res.render('clothing');
-});
+// app.get('/clothing', (req, res) => {
+//     res.render('clothing');
+// });
 
-app.get('/electronics', (req, res) => {
-    res.render('electronics');
-});
+// app.get('/electronics', (req, res) => {
+//     res.render('electronics');
+// });
 
 app.get('/deals', (req, res) => {
     res.render('deals');
