@@ -204,9 +204,9 @@
             <% result.forEach( result => { %>
                 <a class="product" href="/<%= result.ProductID %>">
                     <div class = "product">
-                        <h3 class = "productName">Product Name</h3>
+                        <h3 class = "productName"><%= result.ProductName %></h3>
                         <!-- <img src="<%= result.Image %>" alt="<%= result.ProductName %>"> -->
-                        <p>Produc type: <%= result.ProductType %></p>
+                        <p>Product type: <%= result.ProductType %></p>
                         <p>Description: <%= result.Description %></p>
                         <% if(result.CompanyName != null){ %>
                             <p>Company: <%= result.CompanyName %></p>
