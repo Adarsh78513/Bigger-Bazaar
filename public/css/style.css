@@ -28,21 +28,21 @@ nav a{
 }
 
 .deals{
-    background-color: aqua;
+    background-color: rgb(89, 202, 166);
     font-family: 'Courier New', Courier, monospace;
 }
 
 .wishlist{
-    background-color: rgb(61, 117, 117);
+    background-color: rgb(66, 160, 160);
     font-family: 'Courier New', Courier, monospace;
 }
 
 .bestsellers{
-    background-color: rgb(95, 61, 117);
+    background-color: rgb(143, 82, 185);
     font-family: 'Courier New', Courier, monospace;
 }
 .newarrivals{
-    background-color: rgb(38, 19, 90);
+    background-color: rgb(109, 84, 179);
     font-family: 'Courier New', Courier, monospace;
 }
 
