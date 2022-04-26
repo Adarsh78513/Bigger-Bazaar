@@ -104,7 +104,7 @@ app.get('/groceries', (req, res) => {
     let sql = "SELECT * FROM groceries, products WHERE groceries.ProductID = products.ProductID";
     con.query(sql, function (err, result, fields) {
         if (err) throw err;
-        console.log(result);
+        // console.log(result);
         res.render('groceries', {title : 'groceries', result});
     });
 });
@@ -137,10 +137,14 @@ app.post('/login', (req, res) => {
     con.query(sql, function (err, result, fields) {
         if (err) throw err;
         if(result.length === 0){
-            res.redirect('register');
+            user_info=0;
+            console.log(user_info);
+            res.redirect('/register');
         }
         else{
             res.redirect('/');
+            user_info=result;
+            console.log(user_info);
         }
     });
 });
