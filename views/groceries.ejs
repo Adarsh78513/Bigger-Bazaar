@@ -44,7 +44,7 @@
             <% if(result.length> 0){ %>
                 <% result.forEach( result=> { %>
                     <li>
-                        <h3>Product ID: <%= result.ProductID %>
+                        <h3>Product Name: <%= result.ProductName.substring(13) %>
                         </h3>
                         <p>Product Weight: <%= result.Weight %>
                         </p>
