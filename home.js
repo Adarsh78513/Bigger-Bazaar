@@ -1,21 +1,11 @@
 const express = require('express');
 const app = express();
-const session = require('express-session');
-var mysql = require('mysql2');
+var mysql = require('mysql');
+const morgan = require('morgan');
 
-// for testing cookies
-const app1 = express();
-var Sequelize = require("sequelize");
-var SequelizeStore = require("express-session-sequelize")(session.Store);
+app.use(morgan('dev'))
 
-// connecting database with azure
-var sequelize = new Sequelize("project", "_admin", "Project@123", {
-    dialect: "mysql",
-    storage: "project-database.mysql.database.azure.com",
-});
-
-
-//making a connection with azure
+//makign a connection with azure
 var con = mysql.createConnection({
     host: "project-database.mysql.database.azure.com",
     user: "_admin",
@@ -29,25 +19,6 @@ var con = mysql.createConnection({
 //     console.log("Connected!");
 // });
 
-// cookies
-// app1.use(session({
-//         secret: 'secret',
-//         store: new SequelizeStore({
-//             db: sequelize,
-//             checkExpirationInterval: 15 * 60 * 1000, // The interval at which to cleanup expired sessions in milliseconds.
-//             expiration: 1 * 60 * 60 * 1000  // The maximum age (in milliseconds) of a valid session.
-//         }),
-//         resave: false,
-//         saveUninitialized: false,
-//     })
-// );
-
-
-app1.get('/', (req, res) => {
-    req.session.isAuth=true;
-    console.log(req.session);
-    res.send('<h1>Hello World</h1>');
-});
 
 ////change the password and the databasename according to your database
 // //connecting with the localhost
@@ -73,15 +44,14 @@ con.connect(function(err) {
 
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
+app.use(express.urlencoded({extended : true}));
 
-app.listen(8080, console.log('Server running on http://localhost:8080'));
+app.listen(8080);
 // app.get('/', (req, res) => {
 //     res.render('home');
 // });
 
-app1.set('view engine', 'ejs');
-app1.use(express.static('public'));
-app1.listen(5000, console.log('Server running on http://localhost:5000'));
+
 
 // app.get('/', (req, res) => {
 //     con.query("SELECT * FROM products", function (err, result, fields) {
@@ -107,6 +77,35 @@ app.get('/', (req, res) => {
         // console.log(result);
         res.render('home', {title : 'products', result});
     });
+});
+
+app.get('/register', (req, res) => {
+    res.render('register.ejs');
+});
+app.post('/register', (req, res) => {
+
+})
+
+app.get('/login', (req, res) => {
+    res.render('login.ejs');
+});
+
+app.post('/login', (req, res) => {
+    console.log(req.body);
+    //check if a user with these credentials exists
+    // let sql = "SELECT * FROM customers WHERE customers.EmailID = ? and customers.Password = ?";
+    // con.query(sql, [req.body.email], [req.body.password], function(err, result, fields){
+    //     if(err) throw(err);
+    //     let sql1 = "SELECT * FROM products";
+    //     con.query(sql1, function (err, result, fields) {
+    //         if (err) throw err;
+    //         // console.log(result);
+    //         res.render('home', {title : 'products', result});
+    //     });
+
+    // });
+    
+
 });
 
 app.get('/:id',(req, res) => {
