@@ -145,6 +145,10 @@ app.post('/login', (req, res) => {
     });
 });
 
+app.get('/account', (req, res) => {
+    res.render('account');
+});
+
 app.get('/:id',(req, res) => {
     const id = req.params.id;
     // let sql = "SELECT * FROM products  LEFT [OUTER] JOIN deals  ON products.DealID = deals.ProductID where ProductID = ?";
@@ -183,9 +187,7 @@ app.get('/wishlist', (req, res) => {
     res.render('wishlist');
 });
 
-app.get('/account', (req, res) => {
-    res.render('account');
-});
+
 
 
 
