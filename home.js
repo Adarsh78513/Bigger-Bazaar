@@ -4,6 +4,7 @@ var mysql = require('mysql');
 const morgan = require('morgan');
 
 app.use(morgan('dev'))
+let user_info = 0;
 
 //makign a connection with azure
 var con = mysql.createConnection({
@@ -91,19 +92,19 @@ app.get('/login', (req, res) => {
 });
 
 app.post('/login', (req, res) => {
+    user_info = req.body;
     console.log(req.body);
-    //check if a user with these credentials exists
-    // let sql = "SELECT * FROM customers WHERE customers.EmailID = ? and customers.Password = ?";
-    // con.query(sql, [req.body.email], [req.body.password], function(err, result, fields){
-    //     if(err) throw(err);
-    //     let sql1 = "SELECT * FROM products";
-    //     con.query(sql1, function (err, result, fields) {
-    //         if (err) throw err;
-    //         // console.log(result);
-    //         res.render('home', {title : 'products', result});
-    //     });
-
-    // });
+    console.log(user_info);
+    let sql = "SELECT * FROM customers WHERE customers.EmailID = '" + user_info.email + "' AND customers.Password = '" + user_info.password + "'";
+    con.query(sql, function (err, result, fields) {
+        if (err) throw err;
+        if(result.length === 0){
+            res.redirect('register');
+        }
+        else{
+            res.redirect('/');
+        }
+    });
 });
 
 app.get('/:id',(req, res) => {
