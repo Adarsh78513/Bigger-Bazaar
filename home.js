@@ -197,8 +197,8 @@ app.post('/login', (req, res) => {
         }
         else{
             req.session.loggeduser = true;
-            req.session.user = user_info;
             user_info=result;
+            req.session.user = user_info;
             console.log(user_info);
             res.redirect('/');
         }
@@ -212,10 +212,11 @@ app.get('/account', (req, res) => {
 app.get('/wishlist', isAuthanticated, async (req, res) => {
     console.log("wishlist");
     let user_id = await req.session.user;
-    console.log(user_id);
-    let sql = "SELECT * FROM wishlist w WHERE w.CustomerID = '" + user_id.CustomerID + "'";
+    console.log(user_id[0].CustomerID);
+    // let sql = `select * from products`;
+    let sql = `SELECT * FROM products p, wishlist w WHERE w.CustomerID = ${user_id[0].CustomerID} AND p.ProductID = w.ProductID`;
     let wish = await run_query(sql);
-    
+    console.log(wish);
     res.render('wishlist',{title: 'wishlist' , wish});
 });
 
