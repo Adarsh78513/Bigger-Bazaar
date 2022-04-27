@@ -165,7 +165,7 @@ app.get('/login', (req, res) => {
     res.render('login.ejs');
 });
 
-app.post('/login',(req, res) => {
+app.post('/login', (req, res) => {
     user_info = req.body;
     console.log(req.body);
     console.log(user_info);
@@ -180,8 +180,6 @@ app.post('/login',(req, res) => {
         else{
             res.redirect('/');
             user_info=result;
-            req.session.loggeduser = true;
-            req.session.user = user_info;
             console.log(user_info);
         }
     });
