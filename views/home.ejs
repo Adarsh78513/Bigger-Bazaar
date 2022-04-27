@@ -12,7 +12,6 @@
             <title>Product List</title>
         </head>
     
-    
         <h2>Products List</h2>
         <hr>
         <Table border=2px bgcolor="white" height=100 width=1470px>
@@ -219,6 +218,16 @@
         <% }else { %>
             <p>No results</p>
         <% } %>
+
+        <div class="faq">
+        <h1>Frequently asked Questions</h1>
+        <% if(faq.length > 0) { %>
+            <% faq.forEach(faq => { %>
+                <h3 class = "Question"><%= faq.Question %></h3>
+                <p class = "Answer"><%= faq.Answer %></p>
+            <% }) %>
+        <% } %>
+    </div>
 
 
 

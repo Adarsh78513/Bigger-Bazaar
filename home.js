@@ -146,13 +146,15 @@ app.get('/groceries', (req, res) => {
     });
 });
 
-app.get('/', (req, res) => {
+app.get('/', async (req, res) => {
     let sql = "SELECT * FROM products";
-    con.query(sql, function (err, result, fields) {
-        if (err) throw err;
-        // console.log(result);
-        res.render('home', {title : 'products', result});
-    });
+    let result = await run_query(sql);
+    let sql2 = "SELECT * FROM questions q, answers a, faq fa WHERE fa.QuestionID = q.QuestionID AND fa.AnswerID = a.AnswerID";
+    let faq = await run_query(sql2);
+    console.log(faq);
+
+    res.render('home', {title : 'products', result, faq});
+
 });
 
 app.get('/register', (req, res) => {
