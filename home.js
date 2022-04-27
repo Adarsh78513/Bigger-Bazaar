@@ -17,6 +17,7 @@ app.use(session({
 }));
 
 const isAuthanticated = (req, res, next) => {
+    console.log(req.session.loggeduser);
     if(req.session.loggeduser){
         return next();
     }
@@ -178,6 +179,7 @@ app.post('/login', (req, res) => {
             res.redirect('/register');
         }
         else{
+            req.session.loggeduser = true;
             res.redirect('/');
             user_info=result;
             console.log(user_info);
@@ -191,7 +193,7 @@ app.get('/account', (req, res) => {
 
 app.get('/wishlist', isAuthanticated, (req, res) => {
     console.log("wishlist");
-    res.render('buy');
+    // res.render('buy');
     // console.log(req.session.user);
     // let sql = "SELECT * FROM wishlist WHERE CustomerID = ";
     res.render('wishlist');
