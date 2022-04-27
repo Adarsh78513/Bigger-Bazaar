@@ -182,9 +182,10 @@ app.post('/login', (req, res) => {
         }
         else{
             req.session.loggeduser = true;
-            res.redirect('/');
+            req.session.user = user_info;
             user_info=result;
             console.log(user_info);
+            res.redirect('/');
         }
     });
 });
@@ -193,12 +194,14 @@ app.get('/account', (req, res) => {
     res.render('account');
 });
 
-app.get('/wishlist', isAuthanticated, (req, res) => {
+app.get('/wishlist', isAuthanticated, async (req, res) => {
     console.log("wishlist");
-    // res.render('buy');
-    // console.log(req.session.user);
-    // let sql = "SELECT * FROM wishlist WHERE CustomerID = ";
-    res.render('wishlist');
+    let user_id = await req.session.user;
+    console.log(user_id);
+    let sql = "SELECT * FROM wishlist w WHERE w.CustomerID = '" + user_id.CustomerID + "'";
+    let wish = await run_query(sql);
+    
+    res.render('wishlist',{title: 'wishlist' , wish});
 });
 
 
