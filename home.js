@@ -133,18 +133,23 @@ app.post('/login', (req, res) => {
     user_info = req.body;
     console.log(req.body);
     console.log(user_info);
-    let sql = "SELECT * FROM customers WHERE customers.EmailID = '" + user_info.email + "' AND customers.Password = '" + user_info.password + "'";
-    con.query(sql, function (err, result, fields) {
+    let sql = `SELECT * FROM customers WHERE customers.EmailID = '${user_info.email}' AND customers.Password = '${user_info.password}'; SELECT * FROM employees WHERE employees.EmployeeEmail = '${user_info.email}' AND employees.EmployeePassword = '${user_info.password}';`;
+    con.query(sql, [1, 2], function (err, result, fields) {
         if (err) throw err;
-        if(result.length === 0){
+        if(result[0].length>0){
+            user_info=result[0];
+            console.log(user_info);
+            res.redirect('/');
+        }
+        else if(result[1].length>0){
+            user_info=result[1];
+            console.log(user_info);
+            res.redirect('/');
+        }
+        else{
             user_info=0;
             console.log(user_info);
             res.redirect('/register');
-        }
-        else{
-            res.redirect('/');
-            user_info=result;
-            console.log(user_info);
         }
     });
 });
