@@ -41,7 +41,7 @@ function run_query(query){
     });
 }
 
-//makign a connection with azure
+//making a connection with azure
 var con = mysql.createConnection({
     host: "project-database.mysql.database.azure.com",
     user: "_admin",
@@ -82,7 +82,7 @@ app.set('view engine', 'ejs');
 app.use(express.static('public'));
 app.use(express.urlencoded({extended : true}));
 
-app.listen(8080);
+app.listen(8080, console.log('server running at http://localhost:8080'));
 // app.get('/', (req, res) => {
 //     res.render('home');
 // });
@@ -146,13 +146,28 @@ app.get('/groceries', (req, res) => {
     });
 });
 
+app.get('/account', (req, res) => {
+    console.log(user_info[0].CustomerID);
+    // const a = user_info[0].CustomerID;
+    // console.log(`${a}`, a);
+    let sql = `SELECT * FROM customers WHERE customers.CustomerID = ${user_info[0].CustomerID}; 
+    SELECT PurchasePoints FROM backgrounddetails WHERE backgrounddetails.CustomerID = ${user_info[0].CustomerID};
+    SELECT * FROM pay WHERE pay.CustomerID = ${user_info[0].CustomerID};`;
+    con.query(sql, [1, 2, 3], function (err, result, fields) {
+        if (err) throw err;
+        // console.log(result[1][0].Pur);
+        console.log(result);
+        res.render('account', {title : 'account', result});
+        // res.send('account', {title : 'account', result});
+    });
+});
+
 app.get('/', async (req, res) => {
     let sql = "SELECT * FROM products";
     let result = await run_query(sql);
     let sql2 = "SELECT * FROM questions q, answers a, faq fa WHERE fa.QuestionID = q.QuestionID AND fa.AnswerID = a.AnswerID";
     let faq = await run_query(sql2);
     console.log(faq);
-
     res.render('home', {title : 'products', result, faq});
 
 });
@@ -230,13 +245,6 @@ app.get('/register', (req, res) => {
     res.render('register');
 });
 
-
-
-
-
-
-
-
 app.get('/buy', (req, res) => {
     res.render('buy');
 });
@@ -263,7 +271,7 @@ app.get('/deals', (req, res) => {
 
 
 app.get('/:id',async (req, res) => {
-    const id = await req.params.id;
+    const id = req.params.id;
     // console.log(req.params);
     if( id == 'favicon.ico'){
         res.redirect('/');
