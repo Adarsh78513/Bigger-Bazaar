@@ -5,12 +5,24 @@ const morgan = require('morgan');
 var session = require('express-session');
 
 
+// Returns a middleware to serve favicon
+// app.use(favicon(__dirname + '/favicon.ico'));
+  
+
 
 app.use(session({
     secret: 'keyboard cat',
     resave: true,
     saveUninitialized: true
 }));
+
+const isAuthanticated = (req, res, next) => {
+    if(req.session.loggeduser){
+        return next();
+    }
+    res.redirect('/login');
+    return;
+};
 
 // res.session.auth = true;
 
@@ -93,6 +105,8 @@ app.listen(8080);
 //     });
 // });
 
+// app.get('/favicon.ico', (req, res) => res.status(204).end());
+
 app.get('/deals', (req, res) => {
     let sql = "SELECT * FROM deals, groceries WHERE groceries.ProductID = deals.ProductID; SELECT * FROM deals, clothing WHERE clothing.ProductID = deals.ProductID; SELECT * FROM deals, electronics WHERE electronics.ProductID = deals.ProductID;";
     con.query(sql, [1, 2, 3], function (err, result, fields) {
@@ -155,23 +169,18 @@ app.post('/login', (req, res) => {
     user_info = req.body;
     console.log(req.body);
     console.log(user_info);
-    let sql = `SELECT * FROM customers WHERE customers.EmailID = '${user_info.email}' AND customers.Password = '${user_info.password}'; SELECT * FROM employees WHERE employees.EmployeeEmail = '${user_info.email}' AND employees.EmployeePassword = '${user_info.password}';`;
-    con.query(sql, [1, 2], function (err, result, fields) {
+    let sql = "SELECT * FROM customers WHERE customers.EmailID = '" + user_info.email + "' AND customers.Password = '" + user_info.password + "'";
+    con.query(sql, function (err, result, fields) {
         if (err) throw err;
-        if(result[0].length>0){
-            user_info=result[0];
-            console.log(user_info);
-            res.redirect('/');
-        }
-        else if(result[1].length>0){
-            user_info=result[1];
-            console.log(user_info);
-            res.redirect('/');
-        }
-        else{
+        if(result.length === 0){
             user_info=0;
             console.log(user_info);
             res.redirect('/register');
+        }
+        else{
+            res.redirect('/');
+            user_info=result;
+            console.log(user_info);
         }
     });
 });
@@ -180,33 +189,15 @@ app.get('/account', (req, res) => {
     res.render('account');
 });
 
-app.get('/:id',async (req, res) => {
-    const id = await req.params.id;
-    // console.log(req.params);
-    if( id == 'favicon.ico'){
-        res.redirect('/');
-        return;
-    }
-    // console.log(id);
-    // let sql = "SELECT * FROM products  LEFT [OUTER] JOIN deals  ON products.DealID = deals.ProductID where ProductID = ?";
-    // if ( id != Number(id)){
-    //     res.redirect('/');
-    // }
-    let sql = "SELECT * FROM products WHERE ProductID = " + id;
-    let product = await run_query(sql);
-    // console.log(id);
-
-    let sql2 = "SELECT * FROM deals WHERE ProductID = " + id;
-    let deal = await run_query(sql2);
-    // console.log(id);
-
-    // console.log(product);
-    let pType = await product[0].ProductType;
-
-    let sql3 = "SELECT * FROM " + pType + " WHERE ProductID = " + id;
-    let details = await run_query(sql3);
-    res.render('product', { title : 'product', product , deal, details, pType});
+app.get('/wishlist', isAuthanticated, (req, res) => {
+    console.log("wishlist");
+    res.render('buy');
+    // console.log(req.session.user);
+    // let sql = "SELECT * FROM wishlist WHERE CustomerID = ";
+    res.render('wishlist');
 });
+
+
 
 app.get('/product', (req, res) => {
     let sql = "SELECT * FROM deals, groceries WHERE groceries.ProductID = deals.ProductID; SELECT * FROM deals, clothing WHERE clothing.ProductID = deals.ProductID; SELECT * FROM deals, electronics WHERE electronics.ProductID = deals.ProductID;";
@@ -222,7 +213,9 @@ app.get('/product', (req, res) => {
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
 
-app.get('/login', (req, res) => {
+
+
+app.get('/login',(req, res) => {
     res.render('login');
 });
 
@@ -231,9 +224,7 @@ app.get('/register', (req, res) => {
 });
 
 
-app.get('/wishlist', (req, res) => {
-    res.render('wishlist');
-});
+
 
 
 
@@ -261,4 +252,33 @@ app.get('/buy', (req, res) => {
 
 app.get('/deals', (req, res) => {
     res.render('deals');
+});
+
+
+app.get('/:id',async (req, res) => {
+    const id = await req.params.id;
+    // console.log(req.params);
+    if( id == 'favicon.ico'){
+        res.redirect('/');
+        return;
+    }
+    // console.log(id);
+    // let sql = "SELECT * FROM products  LEFT [OUTER] JOIN deals  ON products.DealID = deals.ProductID where ProductID = ?";
+    // if ( id != Number(id)){
+    //     res.redirect('/');
+    // }
+    let sql = "SELECT * FROM products WHERE ProductID = " + id;
+    let product = await run_query(sql);
+    // console.log(id);
+
+    let sql2 = "SELECT * FROM deals WHERE ProductID = " + id;
+    let deal = await run_query(sql2);
+    // console.log(id);
+
+    // console.log(product);
+    let pType = await product[0].ProductType;
+
+    let sql3 = "SELECT * FROM " + pType + " WHERE ProductID = " + id;
+    let details = await run_query(sql3);
+    res.render('product', { title : 'product', product , deal, details, pType});
 });
