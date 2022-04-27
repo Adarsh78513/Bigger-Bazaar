@@ -32,6 +32,20 @@ nav a{
     font-family: 'Courier New', Courier, monospace;
 }
 
+.deal{
+    margin-left: 50px;
+    margin-right: 50px;
+    color: rgb(90, 20, 20);
+    background-color: #12a71a;
+    text-decoration: none;
+}
+.details{
+    margin-left: 50px;
+    margin-right: 50px;
+    background-color: rgb(89, 202, 166);
+    font-family: 'Courier New', Courier, monospace;
+}
+
 .wishlist{
     background-color: rgb(66, 160, 160);
     font-family: 'Courier New', Courier, monospace;

@@ -2,9 +2,31 @@ const express = require('express');
 const app = express();
 var mysql = require('mysql');
 const morgan = require('morgan');
+var session = require('express-session');
+
+
+
+app.use(session({
+    secret: 'keyboard cat',
+    resave: true,
+    saveUninitialized: true
+}));
+
+// res.session.auth = true;
 
 app.use(morgan('dev'))
 let user_info = 0;
+
+function run_query(query){
+    return new Promise((resolve, reject) => {
+        con.query(query, function (error, results, fields) {
+            if (error) {
+                reject(error);
+            }
+            resolve(results);
+        });
+    });
+}
 
 //makign a connection with azure
 var con = mysql.createConnection({
@@ -153,15 +175,32 @@ app.get('/account', (req, res) => {
     res.render('account');
 });
 
-app.get('/:id',(req, res) => {
-    const id = req.params.id;
+app.get('/:id',async (req, res) => {
+    const id = await req.params.id;
+    // console.log(req.params);
+    if( id == 'favicon.ico'){
+        res.redirect('/');
+        return;
+    }
+    // console.log(id);
     // let sql = "SELECT * FROM products  LEFT [OUTER] JOIN deals  ON products.DealID = deals.ProductID where ProductID = ?";
-    let sql = "SELECT * FROM products WHERE ProductID = ?";
-    con.query(sql, [id], function (err, result, fields) {
-        if (err) throw err;
-        // console.log(result);
-        res.render('product', { title : 'product', result});
-    });
+    // if ( id != Number(id)){
+    //     res.redirect('/');
+    // }
+    let sql = "SELECT * FROM products WHERE ProductID = " + id;
+    let product = await run_query(sql);
+    // console.log(id);
+
+    let sql2 = "SELECT * FROM deals WHERE ProductID = " + id;
+    let deal = await run_query(sql2);
+    // console.log(id);
+
+    // console.log(product);
+    let pType = await product[0].ProductType;
+
+    let sql3 = "SELECT * FROM " + pType + " WHERE ProductID = " + id;
+    let details = await run_query(sql3);
+    res.render('product', { title : 'product', product , deal, details, pType});
 });
 
 app.get('/product', (req, res) => {
