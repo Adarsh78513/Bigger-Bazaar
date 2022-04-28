@@ -29,6 +29,7 @@ const isAuthanticated = (req, res, next) => {
 
 app.use(morgan('dev'))
 let user_info = 0;
+let payment_info = 0;
 
 function run_query(query){
     return new Promise((resolve, reject) => {
@@ -167,7 +168,6 @@ app.get('/', async (req, res) => {
     let result = await run_query(sql);
     let sql2 = "SELECT * FROM questions q, answers a, faq fa WHERE fa.QuestionID = q.QuestionID AND fa.AnswerID = a.AnswerID";
     let faq = await run_query(sql2);
-
     res.render('home', {title : 'products', result, faq});
 
 });
@@ -179,9 +179,38 @@ app.post('/register', (req, res) => {
 
 })
 
+app.get('/payment', isAuthanticated, (req, res) => {
+    res.render('payment.ejs');
+});
+
 app.get('/login', (req, res) => {
     res.render('login.ejs');
 });
+
+app.post('/payment', async (req, res) => {
+    payment_info = req.body;
+    console.log("Payment Info: ", payment_info);
+    let paysql = "SELECT MAX(PaymentID) as id from pay";
+    let p=await run_query(paysql);
+    console.log(p);
+    let payid=p[0].id+1;
+    if (payment_info.upi_id == "") 
+        payment_info.upi_id = "null";
+    if (payment_info.credit_card_number == "")
+        payment_info.credit_card_number = "null";
+    if (payment_info.debit_card_number == "")
+        payment_info.debit_card_number = "null";
+    if (payment_info.card_type == "")
+        payment_info.card_type = "null";
+    if (payment_info.card_owner == "")
+        payment_info.card_owner = "null";
+    let sql = `INSERT INTO pay (PaymentID, CustomerID, UPIID, CreditCard, DebitCard, TypeOfCard, NameOnCard) VALUES (${payid}, ${user_info[0].CustomerID}, ${payment_info.upi_id}, ${payment_info.credit_card_number}, ${payment_info.debit_card_number}, '${payment_info.card_type}', '${payment_info.card_owner}');`;
+    con.query(sql, function (err, result, fields) {
+        if (err) throw err;
+        res.redirect('/');
+    });
+});
+
 
 app.post('/login', (req, res) => {
     user_info = req.body;
@@ -275,7 +304,6 @@ app.get('/buy', (req, res) => {
 app.get('/deals', (req, res) => {
     res.render('deals');
 });
-
 
 app.get('/:id',async (req, res) => {
     const id = req.params.id;
