@@ -158,11 +158,11 @@ app.get('/account', isAuthanticated, async (req, res) => {
     let sql3 = "SELECT * FROM pay WHERE pay.CustomerID = " + user_info[0].CustomerID;
     let pay = await run_query(sql3);
 
-    console.log(user);
-    console.log(user[0].CustomerID);
-    console.log(PurchasePoints);
-    console.log(PurchasePoints[0].PurchasePoints);
-    console.log(pay);
+    // console.log(user);
+    // console.log(user[0].CustomerID);
+    // console.log(PurchasePoints);
+    // console.log(PurchasePoints[0].PurchasePoints);
+    // console.log(pay);
 
 
     res.render('account', {title : 'account', user, PurchasePoints, pay});
