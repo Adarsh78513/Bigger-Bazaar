@@ -151,7 +151,7 @@ app.get('/', async (req, res) => {
     let result = await run_query(sql);
     let sql2 = "SELECT * FROM questions q, answers a, faq fa WHERE fa.QuestionID = q.QuestionID AND fa.AnswerID = a.AnswerID";
     let faq = await run_query(sql2);
-    console.log(faq);
+    // console.log(faq);
 
     res.render('home', {title : 'products', result, faq});
 
@@ -190,8 +190,14 @@ app.post('/login', (req, res) => {
     });
 });
 
-app.get('/account', (req, res) => {
-    res.render('account');
+app.get('/account',isAuthanticated, async (req, res) => {
+    let user_info = await req.session.user;
+    console.log(user_info);
+    let sql = "SELECT * FROM customers WHERE customers.CustomerID = '" + user_info[0].CustomerID + "'";
+    let user = await run_query(sql);
+    // console.log(user);
+
+    res.render('account', {title : 'account', user, });
 });
 
 app.get('/wishlist', isAuthanticated, async (req, res) => {
