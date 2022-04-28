@@ -16,8 +16,8 @@ app.use(session({
     saveUninitialized: true
 }));
 
-const isAuthanticated = (req, res, next) => {
-    console.log(req.session.loggeduser);
+const isAuthenticated = (req, res, next) => {
+    // console.log(req.session.loggeduser);
     if(req.session.loggeduser){
         return next();
     }
@@ -147,20 +147,26 @@ app.get('/groceries', (req, res) => {
     });
 });
 
-app.get('/account', (req, res) => {
+app.get('/account', isAuthenticated, async (req, res) => {
+    let user_info = await req.session.user;
+    console.log(user_info);
     console.log(user_info[0].CustomerID);
-    // const a = user_info[0].CustomerID;
-    // console.log(`${a}`, a);
-    let sql = `SELECT * FROM customers WHERE customers.CustomerID = ${user_info[0].CustomerID}; 
-    SELECT PurchasePoints FROM backgrounddetails WHERE backgrounddetails.CustomerID = ${user_info[0].CustomerID};
-    SELECT * FROM pay WHERE pay.CustomerID = ${user_info[0].CustomerID};`;
-    con.query(sql, [1, 2, 3], function (err, result, fields) {
-        if (err) throw err;
-        // console.log(result[1][0].Pur);
-        console.log(result);
-        res.render('account', {title : 'account', result});
-        // res.send('account', {title : 'account', result});
-    });
+
+    let sql = "SELECT * FROM customers WHERE customers.CustomerID = " + user_info[0].CustomerID;
+    let user = await run_query(sql);
+    let sql2 = "SELECT PurchasePoints FROM backgrounddetails WHERE backgrounddetails.CustomerID = " + user_info[0].CustomerID;
+    let PurchasePoints = await run_query(sql2);
+    let sql3 = "SELECT * FROM pay WHERE pay.CustomerID = " + user_info[0].CustomerID;
+    let pay = await run_query(sql3);
+
+    // console.log(user);
+    // console.log(user[0].CustomerID);
+    // console.log(PurchasePoints);
+    // console.log(PurchasePoints[0].PurchasePoints);
+    // console.log(pay);
+
+
+    res.render('account', {title : 'account', user, PurchasePoints, pay});
 });
 
 app.get('/', async (req, res) => {
@@ -179,7 +185,7 @@ app.post('/register', (req, res) => {
 
 })
 
-app.get('/payment', isAuthanticated, (req, res) => {
+app.get('/payment', isAuthenticated, (req, res) => {
     res.render('payment.ejs');
 });
 
@@ -214,44 +220,34 @@ app.post('/payment', async (req, res) => {
 
 app.post('/login', (req, res) => {
     user_info = req.body;
-    console.log(req.body);
-    console.log(user_info);
+    // console.log(req.body);
+    // console.log(user_info);
     let sql = "SELECT * FROM customers WHERE customers.EmailID = '" + user_info.email + "' AND customers.Password = '" + user_info.password + "'";
     con.query(sql, function (err, result, fields) {
         if (err) throw err;
         if(result.length === 0){
             user_info=0;
-            console.log(user_info);
+            // console.log(user_info);
             res.redirect('/register');
         }
         else{
             req.session.loggeduser = true;
             user_info=result;
             req.session.user = user_info;
-            console.log(user_info);
+            // console.log(user_info);
             res.redirect('/');
         }
     });
 });
 
-app.get('/account',isAuthanticated, async (req, res) => {
-    let user_info = await req.session.user;
-    console.log(user_info);
-    let sql = "SELECT * FROM customers WHERE customers.CustomerID = '" + user_info[0].CustomerID + "'";
-    let user = await run_query(sql);
-    // console.log(user);
-
-    res.render('account', {title : 'account', user, });
-});
-
-app.get('/wishlist', isAuthanticated, async (req, res) => {
-    console.log("wishlist");
+app.get('/wishlist', isAuthenticated, async (req, res) => {
+    // console.log("wishlist");
     let user_id = await req.session.user;
-    console.log(user_id[0].CustomerID);
+    // console.log(user_id[0].CustomerID);
     // let sql = `select * from products`;
     let sql = `SELECT * FROM products p, wishlist w WHERE w.CustomerID = ${user_id[0].CustomerID} AND p.ProductID = w.ProductID`;
     let wish = await run_query(sql);
-    console.log(wish);
+    // console.log(wish);
     res.render('wishlist',{title: 'wishlist' , wish});
 });
 

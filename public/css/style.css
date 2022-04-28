@@ -11,6 +11,10 @@
     font-size: 120%;
 }
 
+.customer_name{
+    font-size: 1.25rem;
+    font-weight: bold;
+}
 nav{
     background-color: #f2f2f2;
     height: 50px;

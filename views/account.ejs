@@ -1,136 +1,51 @@
-<!-- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
-<%- include('./partials/head.ejs') %>
 
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Account</title>
-    </head>
-
+    <%- include('./partials/head.ejs') %>
     <body>
-        <h1>
-            Account Details
-        </h1>
-        <section style="background-color: rgb(255, 255, 255);"> 
-            <div class="container py-5">
-                <div class="row">
-                    <div class="col-lg-8">
-                        <div class="card mb-4"> 
-                            <div class="card-body">
-                                <hr>
-                                <div class="row">
-                                    <div class="col-sm-3">
-                                        <p class="mb-0">Full Name</p>
-                                    </div>
-                                    <div class="col-sm-9">
-                                        <p class="text-muted mb-0"><%= result[0][0].CustomerName %></p>
-                                    </div>
-                                </div>
-                                <hr>
-                                <div class="row">
-                                    <div class="col-sm-3">
-                                        <p class="mb-0">Email</p>
-                                    </div>
-                                    <div class="col-sm-9">
-                                        <p class="text-muted mb-0"><%= result[0][0].EmailID %></p>
-                                    </div>
-                                </div>
-                                <hr>
-                                <div class="row">
-                                    <div class="col-sm-3">
-                                        <p class="mb-0">Mobile Number</p>
-                                    </div>
-                                    <div class="col-sm-9">
-                                        <p class="text-muted mb-0"><%= result[0][0].Mobile %></p>
-                                    </div>
-                                </div>
-                                <hr>
-                                <div class="row">
-                                    <div class="col-sm-3">
-                                        <p class="mb-0">Address</p>
-                                    </div>
-                                    <div class="col-sm-9">
-                                        <p class="text-muted mb-0"><%= result[0][0].Address %></p>
-                                    </div>
-                                </div>
-                                <hr>
-                                <div class="row">
-                                    <div class="col-sm-3">
-                                        <p class="mb-0">Membership</p>
-                                    </div>
-                                    <div class="col-sm-9">
-                                        <p class="text-muted mb-0"><%= result[0][0].Membership %></p>
-                                    </div>
-                                </div>
-                                <hr>
-                                <div class="row">
-                                    <div class="col-sm-3">
-                                        <p class="mb-0">Purchase Points</p>
-                                    </div>
-                                    <div class="col-sm-9">
-                                        <p class="text-muted mb-0"><%= result[1][0].PurchasePoints %></p>
-                                    </div>
-                                </div>
-                                <script>if (result[2] != null) { </script>
-                                    <hr>
-                                    <div class="row">
-                                        <div class="col-sm-3">
-                                            <p class="mb-0">UPI ID</p>
-                                        </div>
-                                        <div class="col-sm-9">
-                                            <p class="text-muted mb-0"><%= result[2][0].UPIID %></p>
-                                        </div>
-                                    </div>
-                                    <script>if (result[2][0].CreditCard != null) { </script> 
-                                        <hr>
-                                        <div class="row">
-                                            <div class="col-sm-3">
-                                                <p class="mb-0">Credit Card</p>
-                                            </div>
-                                            <div class="col-sm-9">
-                                                <p class="text-muted mb-0"><%= result[2][0].CreditCard %></p>
-                                            </div>
-                                        </div>
-                                    <script>}</script>
-                                    <script>if (result[2][0].DebitCard != null) { </script> 
-                                        <hr>
-                                        <div class="row">
-                                            <div class="col-sm-3">
-                                                <p class="mb-0">Debit Card</p>
-                                            </div>
-                                            <div class="col-sm-9">
-                                                <p class="text-muted mb-0"><%= result[2][0].DebitCard %></p>
-                                            </div>
-                                        </div>
-                                    <script>}</script>
-                                    <script>if (result[2][0].TypeOfCard != null) { </script> 
-                                        <hr>
-                                        <div class="row">
-                                            <div class="col-sm-3">
-                                                <p class="mb-0">Type of Card</p>
-                                            </div>
-                                            <div class="col-sm-9">
-                                                <p class="text-muted mb-0"><%= result[2][0].TypeOfCard %></p>
-                                            </div>
-                                        </div>
-                                    <script>}</script>
-                                    <hr>
-                                    <div class="row">
-                                        <div class="col-sm-3">
-                                            <p class="mb-0">Name on Card</p>
-                                        </div>
-                                        <div class="col-sm-9">
-                                            <p class="text-muted mb-0"><%= result[2][0].NameOnCard %></p>
-                                        </div>
-                                    </div>
-                                <script>}</script>
-                            </div>
-                        </div>
+        <div class = "userInfo">
+            <h1 class = "customer_name"><%= user[0].CustomerName %></h1>
+            <p>DOB: <%= user[0].DateOfBirth %></p>
+            <p>PhoneNumber: <%= user[0].Mobile %></p>
+            <p>EmailID: <%= user[0].EmailID %></p>
+            <p style="color: rgb(24, 27, 192); ">Membership Type: <%= user[0].Membership.toUpperCase() %></p>
+        </div>
+
+        <div>
+            <p>You have <%= PurchasePoints[0].PurchasePoints %> left. </p>
+        </div>
+
+
+
+
+        <div class = "card_details">
+            <h1>Saved card details</h1>
+            <% if(pay.length > 0) { %>
+                <% pay.forEach(pay => { %>
+                    <div class = "card_details">
+                        <% if ( pay.NameOnCard != null) { %>
+                            <p>Name on Card: <%= pay.NameOnCard %></p>
+                        <% } %>
+                        <% if ( pay.TypeOfCard != null) { %>
+                            <p>Card type: <%= pay.TypeOfCard %></p>
+                        <% } %>
+                        <% if ( pay.CreditCard != null) { %>
+                            <p>Credit Card Number: <%= pay.CreditCard %></p>
+                        <% } %>
+                        <% if ( pay.DebitCard != null) { %>
+                            <p>Credit Card Number: <%= pay.DebitCard %></p>
+                        <% } %>
                     </div>
-                </div>
-            </div>
-        </section>
+                <% }) %>
+            <% } %>
+
+            
+
+        </div>
+
+
+
+        <%- include('./partials/footer.ejs') %>
     </body>
-</html> -->
+
+</html>
