@@ -19,8 +19,9 @@
 
 
         <div class = "card_details">
-            <h1>Saved card details</h1>
+            
             <% if(pay.length > 0) { %>
+                <h1>Saved card details</h1>
                 <% pay.forEach(pay => { %>
                     <div class = "card_details">
                         <% if ( pay.NameOnCard != null) { %>

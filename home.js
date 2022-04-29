@@ -109,6 +109,20 @@ app.listen(8080, console.log('server running at http://localhost:8080'));
 
 // app.get('/favicon.ico', (req, res) => res.status(204).end());
 
+app.get('/orders', isAuthenticated, async (req, res) => {
+    let user_info = await req.session.user;
+    let sql = "SELECT * FROM products p, orders o WHERE o.ProductID = p.ProductID AND o.CustomerID = "+ user_info[0].CustomerID;
+    let orders = await run_query(sql);
+    console.log(orders);
+    res.render('orders', {orders});
+});
+
+app.get('/logout', (req, res) => {
+    req.session.destroy();
+    res.redirect('/login');
+});
+
+
 app.get('/deals', (req, res) => {
     let sql = "SELECT * FROM deals, groceries WHERE groceries.ProductID = deals.ProductID; SELECT * FROM deals, clothing WHERE clothing.ProductID = deals.ProductID; SELECT * FROM deals, electronics WHERE electronics.ProductID = deals.ProductID;";
     con.query(sql, [1, 2, 3], function (err, result, fields) {
