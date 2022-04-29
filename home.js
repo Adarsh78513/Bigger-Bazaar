@@ -281,6 +281,24 @@ app.get('/buy', (req, res) => {
     res.render('buy');
 });
 
+app.get('/verifying/:id', isAuthenticated, async(req, res) => {
+
+    const id = req.params.id;
+    if( id == 'wishlist'){
+        res.redirect('/');
+        return;
+    }
+    let user_id = req.session.user;
+    console.log('id is : ' + id);
+    console.log(user_id[0]);
+    let sql1 =  "INSERT INTO wishlist (ProductId, CustomerID, Quantity, Ordered) VALUES(" + id + ", " + user_id[0].CustomerID + ", 1, 'No');";
+    let h = await run_query(sql1);
+    let sql = `SELECT * FROM products p, wishlist w WHERE w.CustomerID = ${user_id[0].CustomerID} AND p.ProductID = w.ProductID`;
+    let wish = await run_query(sql);
+    
+    res.redirect('wishlist');
+});
+
 // app.get('/product', (req, res) => {
 //     res.render('product');
 // });
