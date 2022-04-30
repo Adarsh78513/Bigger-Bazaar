@@ -113,7 +113,7 @@ app.get('/orders', isAuthenticated, async (req, res) => {
     let user_info = await req.session.user;
     let sql = "SELECT * FROM products p, orders o WHERE o.ProductID = p.ProductID AND o.CustomerID = "+ user_info[0].CustomerID;
     let orders = await run_query(sql);
-    console.log(orders);
+    // console.log(orders);
     res.render('orders', {orders});
 });
 
